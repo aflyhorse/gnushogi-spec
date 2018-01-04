@@ -7,7 +7,7 @@ Version:        1.5pre
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
-License:        GPLv3 or any later version
+License:        GPLv3+
 URL:            https://www.gnu.org/software/gnushogi
 # The source of this package was pulled from upstreams's vcs.
 #
@@ -54,8 +54,8 @@ if [ $1 = 0 ] ; then
     /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 fi
 # if xboard is installed, try remove gnushogi from the engine list
-CLEANXBOARD=$(grep '\-fcp gnushogi \-variant shogi' /etc/xboard.conf)
-if [ $CLEANXBOARD = 0 ]
+grep '\-fcp gnushogi \-variant shogi' /etc/xboard.conf > /dev/null 2>&1
+if [ $? = 0 ]
     sed -i '/-fcp gnushogi -variant shogi/d' /etc/xboard.conf
 fi
 
