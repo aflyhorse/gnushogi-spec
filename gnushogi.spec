@@ -23,7 +23,6 @@ Source0:        gnushogi-%{version}.tar.gz
 
 BuildRequires:  ncurses-devel
 Requires:       ncurses-libs
-Suggests:       xboard
 
 %description
 GNU shogi is a program that plays shogi, the Japanese version of chess, against a human (or computer) opponent.
