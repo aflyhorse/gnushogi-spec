@@ -3,43 +3,43 @@ Name:           gnushogi
 %global commit 5bb0b5b2f6953b3250e965c7ecaf108215751a74
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-Version:        1.5pre
-Release:        1.git%{shortcommit}%{?dist}
+Version:        1.5
+Release:        0.2.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
 License:        GPLv3+
 URL:            https://www.gnu.org/software/gnushogi
-# The source of this package was pulled from upstreams's vcs.
-#
-# Use the following command to generate the tarball:
-# git clone https://git.savannah.gnu.org/git/gnushogi.git
-# cd %{name}
-# git checkout %{commit}
-# ./autogen.sh && ./configure
-# make dist
-#
-# You'll need autoconf, automake and texinfo-tex to generate.
-Source0:        gnushogi-%{version}.tar.gz
+Source0:        https://git.savannah.gnu.org/cgit/gnushogi.git/snapshot/gnushogi-%{commit}.tar.gz
 
-BuildRequires:  ncurses-devel
-Requires:       ncurses-libs
+BuildRequires:  autoconf, automake, texinfo-tex, ncurses-devel
+
+%if 0%{?fedora} >= 24
+Recommends:     xboard
+%endif
+
+Requires(post): info
+Requires(preun): info
 
 %description
 GNU shogi is a program that plays shogi, the Japanese version of chess, against a human (or computer) opponent.
 GNU Shogi proper is only the AI engine, and you will likely want to use a GUI frontend (XBoard, for example) to be more comfortable.
 
 %prep
-%setup -q
-
+%setup -qn %{name}-%{commit}
+./autogen.sh
 
 %build
 %configure
+%if 0%{?rhel} <= 6
 make %{?_smp_mflags}
+%else
+%make_build
+%endif
 
 
 %install
 %make_install
-%{__rm} -f %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 
 %post
@@ -78,5 +78,8 @@ fi
 
 
 %changelog
-* Thu Jan 4 2018 Chen Chen <aflyhorse@hotmail.com> 1.5pre-1.git5bb0b5b
+* Tue Jan 23 2018 Chen Chen <aflyhorse@hotmail.com> 1.5.0.2.git5bb0b5b
+- Improve the spec file, thanks to Ben Rosser <rosser.bjr@gmail.com>
+
+* Thu Jan 4 2018 Chen Chen <aflyhorse@hotmail.com> 1.5.0.1.git5bb0b5b
 - Initial version.
