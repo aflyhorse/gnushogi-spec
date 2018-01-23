@@ -78,8 +78,8 @@ fi
 
 
 %changelog
-* Tue Jan 23 2018 Chen Chen <aflyhorse@hotmail.com> 1.5.0.2.git5bb0b5b
+* Tue Jan 23 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.2.git5bb0b5b
 - Improve the spec file, thanks to Ben Rosser <rosser.bjr@gmail.com>
 
-* Thu Jan 4 2018 Chen Chen <aflyhorse@hotmail.com> 1.5.0.1.git5bb0b5b
+* Thu Jan 4 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.1.git5bb0b5b
 - Initial version.
