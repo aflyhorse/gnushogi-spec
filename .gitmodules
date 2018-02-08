@@ -1,0 +1,3 @@
+[submodule "gnushogi"]
+	path = gnushogi
+	url = https://git.savannah.gnu.org/git/gnushogi.git
