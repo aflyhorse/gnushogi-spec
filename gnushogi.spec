@@ -4,7 +4,7 @@ Name:           gnushogi
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Version:        1.5
-Release:        0.2.git%{shortcommit}%{?dist}
+Release:        0.3.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
 License:        GPLv3+
