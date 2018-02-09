@@ -4,11 +4,11 @@ Name:           gnushogi
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Version:        1.5
-Release:        0.3.git%{shortcommit}%{?dist}
+Release:        0.4.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
 License:        GPLv3+
-URL:            https://www.gnu.org/software/gnushogi
+URL:            https://www.gnu.org/software/gnushogi/
 Source0:        https://git.savannah.gnu.org/cgit/gnushogi.git/snapshot/gnushogi-%{commit}.tar.gz
 
 BuildRequires:  autoconf, automake, texinfo-tex, ncurses-devel
@@ -23,7 +23,7 @@ Requires(preun): info
 %description
 GNU shogi is a program that plays shogi, the Japanese version of chess, 
 against a human (or computer) opponent. It is only the AI engine, and you 
-will likely want to use a GUI frontend (XBoard, for example) to be more 
+will likely want to use a GUI front-end (XBoard, for example) to be more 
 comfortable.
 
 %prep
@@ -69,13 +69,8 @@ fi
 %files
 %{_bindir}/gnuminishogi
 %{_bindir}/gnushogi
-%{_libdir}/%{name}/gnushogi.tbk
-%{_libdir}/%{name}/gnushogi.bbk
-%{_docdir}/%{name}/CONTRIB
-%{_docdir}/%{name}/BOOKFILES
-%{_docdir}/%{name}/shogi.rules
-%{_docdir}/%{name}/tutorial1.gam
-%{_docdir}/%{name}/tutorial2.gam
+%{_libdir}/%{name}
+%{_docdir}/%{name}
 %{_infodir}/%{name}.info.gz
 %{_mandir}/man6/%{name}.6.gz
 
@@ -85,6 +80,9 @@ fi
 
 
 %changelog
+* Fri Feb 9 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.4.git5bb0b5b
+- Let the package own its lib and doc directories.
+
 * Thu Feb 8 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.3.git5bb0b5b
 - Fix syntax error and add bbk, again thanks to Ben.
 
