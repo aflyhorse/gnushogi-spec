@@ -4,7 +4,7 @@ Name:           gnushogi
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Version:        1.5
-Release:        0.4.git%{shortcommit}%{?dist}
+Release:        0.5.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
 License:        GPLv3+
@@ -17,8 +17,10 @@ BuildRequires:  autoconf, automake, texinfo-tex, ncurses-devel
 Recommends:     xboard
 %endif
 
+%if ( 0%{?rhel} <= 7 ) || ( 0%{?fedora} < 28 )
 Requires(post): info
 Requires(preun): info
+%endif
 
 %description
 GNU shogi is a program that plays shogi, the Japanese version of chess, 
@@ -49,16 +51,20 @@ cp gnushogi/gnushogi.bbk %{buildroot}%{_libdir}/%{name}
 
 
 %post
+%if ( 0%{?rhel} <= 7 ) || ( 0%{?fedora} < 28 )
 /sbin/install-info %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
+%endif
 # if xboard is installed, add gnushogi into xboard default engine list
 if [ -f /etc/xboard.conf ] ; then
     sed -i '/-firstChessProgramNames/a "GNUShogi" -fcp gnushogi -variant shogi' /etc/xboard.conf
 fi
 
 %preun
+%if ( 0%{?rhel} <= 7 ) || ( 0%{?fedora} < 28 )
 if [ $1 = 0 ] ; then
     /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 fi
+%endif
 # if xboard is installed, try remove gnushogi from the engine list
 grep '\-fcp gnushogi \-variant shogi' /etc/xboard.conf > /dev/null 2>&1
 if [ $? = 0 ] ; then
@@ -80,6 +86,9 @@ fi
 
 
 %changelog
+* Sat Jun 16 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.5.git5bb0b5b
+- Wrap install-info in if block as #packaging-committee/issue/773
+
 * Fri Feb 9 2018 Chen Chen <aflyhorse@hotmail.com> 1.5-0.4.git5bb0b5b
 - Let the package own its lib and doc directories.
 
